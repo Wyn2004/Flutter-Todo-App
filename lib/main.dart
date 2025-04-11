@@ -7,15 +7,22 @@ void main(List<String> args) {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final List<DataItem> items = [DataItem(id: "1", name: "Thức Dậy")];
 
   void _handleAddTask(String name) {
     final newItem = DataItem(id: DateTime.now().toString(), name: name);
     items.add(newItem);
-    print(items);
+    setState(() {
+      items;
+    });
   }
 
   // This widget is the root of your application.

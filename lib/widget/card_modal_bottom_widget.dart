@@ -8,9 +8,14 @@ class ModalBottom extends StatelessWidget {
   // Follow text input
   TextEditingController controller = TextEditingController();
 
-  void _handleOnclick() {
+  void _handleOnclick(BuildContext context) {
     final name = controller.text;
-    print(onAddTask(name));
+    if (name.isEmpty) {
+      return;
+    }
+    onAddTask(name);
+    controller.clear();
+    Navigator.pop(context);
   }
 
   @override
@@ -37,7 +42,7 @@ class ModalBottom extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: _handleOnclick,
+                onPressed: () => _handleOnclick(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   padding: const EdgeInsets.symmetric(
