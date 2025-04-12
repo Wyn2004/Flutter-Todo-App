@@ -20,6 +20,16 @@ class _MyAppState extends State<MyApp> {
   void _handleAddTask(String name) {
     final newItem = DataItem(id: DateTime.now().toString(), name: name);
     items.add(newItem);
+    // update state
+    setState(() {
+      items;
+    });
+  }
+
+  void _handleDelete(String id) {
+    // remove item by id
+    items.removeWhere((item) => item.id == id);
+    // update state
     setState(() {
       items;
     });
@@ -40,7 +50,10 @@ class _MyAppState extends State<MyApp> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
-          children: items.map((item) => CardBody(item: item)).toList(),
+          children:
+              items
+                  .map((item) => CardBody(item: item, onDelete: _handleDelete))
+                  .toList(),
         ),
       ),
       floatingActionButton: FloatingActionButton(

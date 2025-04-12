@@ -1,10 +1,20 @@
+import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/modal/item.dart';
 
 class CardBody extends StatelessWidget {
   final DataItem item;
+  final Function(String) onDelete;
 
-  const CardBody({super.key, required this.item});
+  const CardBody({super.key, required this.item, required this.onDelete});
+
+  void _handleDelete(BuildContext context, String id) async {
+    if (await confirm(context)) {
+      // delete item
+      onDelete(id);
+    }
+    return;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +39,10 @@ class CardBody extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Icon(Icons.delete, size: 30),
+            InkWell(
+              onTap: () => _handleDelete(context, item.id),
+              child: const Icon(Icons.delete, size: 30),
+            ),
           ],
         ),
       ),
