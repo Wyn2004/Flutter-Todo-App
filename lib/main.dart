@@ -52,7 +52,13 @@ class _MyAppState extends State<MyApp> {
         child: Column(
           children:
               items
-                  .map((item) => CardBody(item: item, onDelete: _handleDelete))
+                  .map(
+                    (item) => CardBody(
+                      index: items.indexOf(item),
+                      item: item,
+                      onDelete: _handleDelete,
+                    ),
+                  )
                   .toList(),
         ),
       ),

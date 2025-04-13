@@ -5,8 +5,14 @@ import 'package:todo_app/modal/item.dart';
 class CardBody extends StatelessWidget {
   final DataItem item;
   final Function(String) onDelete;
+  final int index;
 
-  const CardBody({super.key, required this.item, required this.onDelete});
+  const CardBody({
+    super.key,
+    required this.index,
+    required this.item,
+    required this.onDelete,
+  });
 
   void _handleDelete(BuildContext context, String id) async {
     if (await confirm(context)) {
@@ -23,7 +29,8 @@ class CardBody extends StatelessWidget {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        color: const Color(0xffDFDFDF),
+        color:
+            index % 2 == 0 ? const Color.fromARGB(255, 113, 246, 235) : const Color.fromARGB(255, 166, 239, 82),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
